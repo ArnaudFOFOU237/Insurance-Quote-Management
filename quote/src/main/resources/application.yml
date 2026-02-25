@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: quote
+  datasource:
+    url: jdbc:mysql://localhost:3306/quotedb?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    enable: true
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+server:
+  port: 8081
+
+external:
+  api:
+    url: http://localhost:8080
+
+resilience4j:
+  circuitbreaker:
+    instance:
+      productCircuitBreaker:
+        register-health-indicator: true
+        minimum-number-of-call: 5
+        failure-rate-threshold: 10
+        wait-duration-in-open-state:
+          seconds: 5
+        permit-number-of-call-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true

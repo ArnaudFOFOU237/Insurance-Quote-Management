@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "productType",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

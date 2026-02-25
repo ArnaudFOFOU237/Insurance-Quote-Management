@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "QuoteAPI",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
