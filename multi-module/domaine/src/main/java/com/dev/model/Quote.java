@@ -14,6 +14,15 @@ public class Quote {
     private CapitalInsure capitalInsure;
     private int lifeTime;
 
+    public Quote() {}
+
+    public Quote(ClientId clientId, ProductType productType, PercentageInsure percentageInsure) {
+        this.clientId = clientId;
+        this.productType = productType;
+        this.percentageInsure = percentageInsure;
+        this.status = QuoteStatus.PROVISOIRE;
+    }
+
     public Quote( UUID id, ClientId clientId, QuoteStatus status, ProductType productType,
                   PercentageInsure percentageInsure, CapitalInsure capitalInsure, int lifeTime) {
         this.id = id;
@@ -25,12 +34,6 @@ public class Quote {
         this.lifeTime = lifeTime;
     }
 
-    public Quote(ClientId clientId, ProductType productType, PercentageInsure percentageInsure) {
-        this.clientId = clientId;
-        this.productType = productType;
-        this.percentageInsure = percentageInsure;
-        this.status = QuoteStatus.PROVISOIRE;
-    }
 
     public ClientId getClientId() {
         return clientId;

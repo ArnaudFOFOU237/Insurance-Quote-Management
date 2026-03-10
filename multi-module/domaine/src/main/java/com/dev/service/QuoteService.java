@@ -1,5 +1,6 @@
 package com.dev.service;
 
+import com.dev.configurations.DomainService;
 import com.dev.model.CapitalInsure;
 import com.dev.model.ProductType;
 import com.dev.model.Quote;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+@DomainService
 public class QuoteService implements QuoteWebPort {
 
     private final QuoteRepositoryPort quoteRepositoryPort;

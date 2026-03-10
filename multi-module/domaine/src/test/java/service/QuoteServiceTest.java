@@ -30,8 +30,6 @@ public class QuoteServiceTest {
     @InjectMocks
     private QuoteService quoteService;
 
-   // traduire les messages en francais
-
     @Test
     @DisplayName("devrait calculer le capital et enregistrer le devis avec le statut provisoire")
     void should_calculate_capital_and_save_quote_with_provisional_status() {
