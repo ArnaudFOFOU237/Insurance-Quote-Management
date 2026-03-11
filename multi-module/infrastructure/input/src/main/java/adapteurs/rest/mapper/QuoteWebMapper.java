@@ -2,36 +2,56 @@ package adapteurs.rest.mapper;
 
 import adapteurs.rest.dto.QuoteRequest;
 import adapteurs.rest.dto.QuoteResponse;
+import com.dev.model.CapitalInsure;
 import com.dev.model.ClientId;
 import com.dev.model.PercentageInsure;
 import com.dev.model.Quote;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import java.math.BigDecimal;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface QuoteWebMapper {
 
-    QuoteWebMapper INSTANCE = Mappers.getMapper( QuoteWebMapper.class );
 
-    default ClientId map(Integer clienId) {
-        return new ClientId(clienId);
+    @Mapping(target = "clientId",         source = "clientId",         qualifiedByName = "toClientId")
+    @Mapping(target = "percentageInsure", source = "percentageInsure", qualifiedByName = "toPercentageInsure")
+     Quote toDomain(QuoteRequest request);
+
+    @Mapping(target = "clientID",         source = "clientId",         qualifiedByName = "fromClientId")
+    @Mapping(target = "percentageInsure", source = "percentageInsure", qualifiedByName = "fromPercentageInsure")
+    @Mapping(target = "capitalInsure",    source = "capitalInsure")
+    QuoteResponse toResponse(Quote quote);
+
+    @Named("toClientId")
+    default ClientId toClientId(Integer value) {
+        return new ClientId(value);
     }
 
-    default Integer map(ClientId clientId) {
+    @Named("fromClientId")
+    default Integer fromClientId(ClientId clientId) {
         return clientId.clientId();
     }
 
-    default PercentageInsure map(BigDecimal percentage) {
-         return new PercentageInsure(percentage);
+    @Named("toPercentageInsure")
+    default PercentageInsure toPercentageInsure(BigDecimal value) {
+        return new PercentageInsure(value);
     }
 
-    default BigDecimal map(PercentageInsure percentageInsure) {
+    @Named("fromPercentageInsure")
+    default BigDecimal fromPercentageInsure(PercentageInsure percentageInsure) {
         return percentageInsure.percentageInsure();
     }
 
-     Quote toDomain(QuoteRequest request);
+    @Named("toCapitalInsure")
+    default CapitalInsure toCapitalInsure(BigDecimal value) {
+        return new CapitalInsure(value);
+    }
 
-     QuoteResponse toResponse(Quote quote);
+    @Named("fromCapitalInsure")
+    default BigDecimal fromCapitalInsure(CapitalInsure capitalInsure) {
+        return capitalInsure.capital();
+    }
 }

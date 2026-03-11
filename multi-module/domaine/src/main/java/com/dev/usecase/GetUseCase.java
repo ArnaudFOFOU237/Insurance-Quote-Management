@@ -8,8 +8,7 @@ import java.util.UUID;
 
 public interface GetUseCase {
     Quote getQuoteByProductType(ProductType productType);
-    Quote getQuoteByClientID(int clientId);
-    Quote getQuoteByID(UUID quoteId);
+    List<Quote> getQuoteByClientID(Integer clientId);
     List<Quote> getAllQuotes();
 
 }

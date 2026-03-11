@@ -26,20 +26,21 @@ public class QuoteController {
         this.quoteMapper = quoteMapper;
     }
 
-    @PostMapping( consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<QuoteResponse> createQuote(@Valid @RequestBody QuoteRequest quoteRequest) {
         Quote quoteToCreate = quoteMapper.toDomain(quoteRequest);
         Quote savedQuote = quoteWebPort.createQuote(quoteToCreate);
         return ResponseEntity.created(URI.create("/api/v1/quotes")).body(quoteMapper.toResponse(savedQuote));
     }
 
-    @GetMapping("/{quoteId}")
-    public ResponseEntity<QuoteResponse> getQuote(@RequestParam(name = "quoteId") UUID quoteId){
-        Quote quote = quoteWebPort.getQuoteByID(quoteId);
-        return ResponseEntity.ok().body(quoteMapper.toResponse(quote));
+    @GetMapping(value = "/{clientId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<QuoteResponse>> getQuoteByClientId(@PathVariable(name = "clientId") Integer  clientId){
+        List<Quote> quotes = quoteWebPort.getQuoteByClientID(clientId);
+        List<QuoteResponse> quoteResponses = quotes.stream().map(quoteMapper::toResponse).toList();
+        return ResponseEntity.ok().body(quoteResponses);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<QuoteResponse>> getAllQuote() {
         List<Quote> quotes = quoteWebPort.getAllQuotes();
         return ResponseEntity.ok().body(quotes.stream().map(quoteMapper::toResponse).toList());

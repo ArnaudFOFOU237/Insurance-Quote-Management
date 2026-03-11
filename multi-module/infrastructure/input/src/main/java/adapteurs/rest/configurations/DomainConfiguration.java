@@ -1,4 +1,4 @@
-package adapteurs.configurations;
+package adapteurs.rest.configurations;
 
 import com.dev.configurations.DomainService;
 import org.springframework.context.annotation.ComponentScan;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ComponentScan(
-        basePackages = "com.dev.service",
+        basePackages = "com.dev.**",
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.ANNOTATION,
                 classes = DomainService.class

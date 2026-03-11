@@ -9,6 +9,6 @@ import java.util.UUID;
 public interface QuoteRepositoryPort {
     Quote save(Quote quote);
     Quote update(UUID id, Quote quote);
-    Quote findById(UUID id);
     List<Quote> findAll();
+    List<Quote> findByClientId(Integer clientId);
 }

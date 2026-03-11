@@ -48,13 +48,8 @@ public class QuoteService implements QuoteWebPort {
     }
 
     @Override
-    public Quote getQuoteByClientID(int clientId) {
-        return null;
-    }
-
-    @Override
-    public Quote getQuoteByID(UUID quoteId) {
-        return quoteRepositoryPort.findById(quoteId);
+    public List<Quote> getQuoteByClientID(Integer clientId) {
+        return quoteRepositoryPort.findByClientId(clientId);
     }
 
     @Override

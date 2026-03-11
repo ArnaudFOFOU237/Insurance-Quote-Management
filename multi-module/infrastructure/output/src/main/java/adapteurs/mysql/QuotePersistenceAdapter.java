@@ -26,7 +26,7 @@ public class QuotePersistenceAdapter implements QuoteRepositoryPort {
     public Quote save(Quote quote) {
         QuoteEntity quoteEntity = quotePersistanceMapper.toEntity(quote);
         QuoteEntity quoteSave = quoteRepository.save(quoteEntity);
-        return quotePersistanceMapper.toDomaine(quoteSave);
+        return quotePersistanceMapper.toDomain(quoteSave);
     }
 
     @Override
@@ -41,23 +41,30 @@ public class QuotePersistenceAdapter implements QuoteRepositoryPort {
         this.getQuoteById(id);
         QuoteEntity toSave = quotePersistanceMapper.toEntity(quote);
         QuoteEntity saved = quoteRepository.save(toSave);
-        return quotePersistanceMapper.toDomaine(saved);
-    }
-
-    @Override
-    public Quote findById(UUID id) {
-        QuoteEntity quoteEntity = getQuoteById(id);
-        return quotePersistanceMapper.toDomaine(quoteEntity);
+        return quotePersistanceMapper.toDomain(saved);
     }
 
     @Override
     public List<Quote> findAll() {
         List<QuoteEntity> quoteEntities = quoteRepository.findAll();
-        return quoteEntities.stream().map(quotePersistanceMapper::toDomaine).toList();
+        return quoteEntities.stream().map(quotePersistanceMapper::toDomain).toList();
     }
 
-    private QuoteEntity getQuoteById(UUID id) {
-        return quoteRepository.findById(id)
+    @Override
+    public List<Quote> findByClientId(Integer clientId) {
+        List<QuoteEntity> quoteEntities = getQuoteByClientId(clientId);
+        if (quoteEntities == null) {
+            throw new ResourceNotFoundException("Quote not found for clientId: " + clientId);
+        }
+        return quoteEntities.stream().map(quotePersistanceMapper::toDomain).toList();
+    }
+
+    private void getQuoteById(UUID id) {
+        quoteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Quote not found"));
+    }
+
+    private List<QuoteEntity> getQuoteByClientId(Integer clientId) {
+        return quoteRepository.findByClientId(clientId);
     }
 }

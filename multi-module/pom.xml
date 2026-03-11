@@ -15,7 +15,6 @@
     <modules>
         <module>domaine</module>
         <module>infrastructure</module>
-        <module>infrastructure/output</module>
     </modules>
 
     <properties>
