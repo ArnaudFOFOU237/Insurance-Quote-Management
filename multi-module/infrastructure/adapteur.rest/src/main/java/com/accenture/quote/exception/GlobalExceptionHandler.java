@@ -1,10 +1,10 @@
 package com.accenture.quote.exception;
 
 
-import com.dev.exceptions.BadRequestException;
-import com.dev.exceptions.InvalidInputException;
-import com.dev.exceptions.ResourceNotFoundException;
-import com.dev.exceptions.ServiceUnavailableException;
+import com.accenture.quote.exceptions.BadRequestException;
+import com.accenture.quote.exceptions.InvalidInputException;
+import com.accenture.quote.exceptions.ResourceNotFoundException;
+import com.accenture.quote.exceptions.ServiceUnavailableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;

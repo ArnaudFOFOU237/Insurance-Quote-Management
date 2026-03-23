@@ -11,5 +11,14 @@
     </parent>
 
     <artifactId>adapteur.externe</artifactId>
-
+    <properties>
+        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.dev</groupId>
+            <artifactId>domaine</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
 </project>

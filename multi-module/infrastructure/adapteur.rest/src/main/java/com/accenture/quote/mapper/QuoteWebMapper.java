@@ -2,10 +2,10 @@ package com.accenture.quote.mapper;
 
 import com.accenture.quote.dto.QuoteRequest;
 import com.accenture.quote.dto.QuoteResponse;
-import com.dev.model.CapitalInsure;
-import com.dev.model.ClientId;
-import com.dev.model.PercentageInsure;
-import com.dev.model.Quote;
+import com.accenture.quote.model.valueobject.CapitalInsure;
+import com.accenture.quote.model.valueobject.ClientId;
+import com.accenture.quote.model.valueobject.PercentageInsure;
+import com.accenture.quote.model.Quote;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -22,7 +22,7 @@ public interface QuoteWebMapper {
 
     @Mapping(target = "clientID",         source = "clientId",         qualifiedByName = "fromClientId")
     @Mapping(target = "percentageInsure", source = "percentageInsure", qualifiedByName = "fromPercentageInsure")
-    @Mapping(target = "capitalInsure",    source = "capitalInsure")
+    @Mapping(target = "capitalInsure",    source = "capitalInsure", qualifiedByName= "fromCapitalInsure")
     QuoteResponse toResponse(Quote quote);
 
     @Named("toClientId")

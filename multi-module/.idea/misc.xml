@@ -11,6 +11,7 @@
       <set>
         <option value="$PROJECT_DIR$/configuration/pom.xml" />
         <option value="$PROJECT_DIR$/exception/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/adapteur.persistance/pom.xml" />
         <option value="$PROJECT_DIR$/infrastructure/input/pom.xml" />
         <option value="$PROJECT_DIR$/infrastructure/mysql/pom.xml" />
         <option value="$PROJECT_DIR$/infrastructure/output/pom.xml" />
