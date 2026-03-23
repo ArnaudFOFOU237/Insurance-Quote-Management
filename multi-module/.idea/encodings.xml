@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/exception/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infrastructure/adaptateur.mysql/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infrastructure/adapteur.externe/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/infrastructure/adapteur.kafka/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infrastructure/adapteur.mysql/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infrastructure/adapteur.persistance/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infrastructure/adapteur.rest/src/main/java" charset="UTF-8" />

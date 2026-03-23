@@ -5,35 +5,46 @@ import com.accenture.quote.dto.QuoteResponse;
 import com.accenture.quote.mapper.QuoteWebMapper;
 import com.accenture.quote.model.Quote;
 import com.accenture.quote.model.QuoteStatus;
+import com.accenture.quote.model.log.AppLogEvent;
 import com.accenture.quote.ports.input.QuoteWebPort;
+import com.accenture.quote.ports.output.LogPublisherPort;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/quotes")
+@RequiredArgsConstructor
 public class QuoteController {
 
     private final QuoteWebPort quoteWebPort;
     private final QuoteWebMapper quoteMapper;
-
-    public QuoteController(QuoteWebPort quoteWebPort, QuoteWebMapper quoteMapper) {
-        this.quoteWebPort = quoteWebPort;
-        this.quoteMapper = quoteMapper;
-    }
+    private final LogPublisherPort logPublisher;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, version = "1.0")
     public ResponseEntity<QuoteResponse> createQuote(@Valid @RequestBody QuoteRequest quoteRequest) {
         Quote quoteToCreate = quoteMapper.toDomain(quoteRequest);
         Quote savedQuote = quoteWebPort.createQuote(quoteToCreate);
-        return ResponseEntity.created(URI.create("/api/v1/quotes")).body(quoteMapper.toResponse(savedQuote));
+        logPublisher.publish(new AppLogEvent(
+                "quote-service",
+                "INFO",
+                "CREATE_QUOTE",
+                "Quote created",
+                savedQuote.getId(),
+                OffsetDateTime.now(),
+                Map.of("clientId", quoteRequest.clientId())
+        ));
+        return ResponseEntity.created(URI.create("/api/quotes")).body(quoteMapper.toResponse(savedQuote));
     }
 
     @GetMapping(value = "/{clientId}", produces = MediaType.APPLICATION_JSON_VALUE,version = "1.0")

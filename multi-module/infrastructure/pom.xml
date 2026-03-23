@@ -17,6 +17,7 @@
         <module>adapteur.externe</module>
         <module>adapteur.mysql</module>
         <module>adapteur.rest</module>
+        <module>adapteur.kafka</module>
     </modules>
 
     <properties>

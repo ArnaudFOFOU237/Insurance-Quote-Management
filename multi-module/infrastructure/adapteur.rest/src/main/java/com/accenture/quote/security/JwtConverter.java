@@ -42,6 +42,7 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
                 || (roles = (Collection<String>) resource.get("roles")) == null) {
             return Set.of();
         }
+        System.out.println("Roles extraits du JWT : " + roles);
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toSet());
