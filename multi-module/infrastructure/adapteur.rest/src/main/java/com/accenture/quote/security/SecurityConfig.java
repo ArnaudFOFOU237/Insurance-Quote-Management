@@ -22,7 +22,7 @@ public class SecurityConfig {
         return httpSecurity
                     .authorizeHttpRequests( authorize -> authorize
                         .requestMatchers("/api/quotes/**").hasAnyRole(ADMIN, USER)
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                     )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter)))
